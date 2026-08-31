@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LGM Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#ecf0f1;margin:0}
+.header{background:#c0392b;color:white;padding:15px;text-align:center}
+.container{padding:20px;max-width:1000px;margin:auto}
+.card{background:white;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px #ccc}
+.tab button{background:#bdc3c7;border:none;padding:10px 20px;margin-right:5px;cursor:pointer;border-radius:5px}
+.tab button.active{background:#c0392b;color:white}
+.approve{background:#27ae60;color:white;border:none;padding:8px 15px;border-radius:5px;cursor:pointer}
+.reject{background:#e74c3c;color:white;border:none;padding:8px 15px;border-radius:5px;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+.status-pending{color:orange;font-weight:bold}
+.status-success{color:green;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="header"><h2>👑 LGM Admin Control Panel</h2></div>
+<div class="container">
+
+<div class="tab">
+<button class="active" onclick="openTab('vendors')">1. Vendor Approvals</button>
+<button onclick="openTab('orders')">2. All Orders</button>
+<button onclick="openTab('riders')">3. Riders</button>
+</div>
+
+<div id="vendors" class="card">
+<h3>New Vendor Applications</h3>
+<table>
+<tr><th>Shop Name</th><th>Address</th><th>Phone</th><th>NIN</th><th>Action</th></tr>
+<tr>
+<td>Mama Nkechi Stores</td><td>Ganaja Junction</td><td>0803...</td><td>1234...</td>
+<td><button class="approve">Approve</button> <button class="reject">Reject</button></td>
+</tr>
+<tr>
+<td>Bununu Foods</td><td>Bununu Dass</td><td>0805...</td><td>5678...</td>
+<td><button class="approve">Approve</button> <button class="reject">Reject</button></td>
+</tr>
+</table>
+</div>
+
+<div id="orders" class="card" style="display:none">
+<h3>All Customer Orders</h3>
+<table>
+<tr><th>Order ID</th><th>Customer</th><th>Products</th><th>Amount</th><th>Vendor</th><th>Status</th></tr>
+<tr>
+<td>#LGM001</td><td>Aisha - Lokoja</td><td>50kg Rice</td><td>₦65,000</td><td>Mama Nkechi</td>
+<td class="status-pending">Pending</td>
+</tr>
+<tr>
+<td>#LGM002</td><td>Musa - Adankolo</td><td>Carton Indomie</td><td>₦8,500</td><td>Bununu Foods</td>
+<td class="status-success">Delivered ✓</td>
+</tr>
+</table>
+</div>
+
+<div id="riders" class="card" style="display:none">
+<h3>Active Riders</h3>
+<p><b>Yakubu</b> - Bike ABC123 - On Delivery to Ganaja</p>
+<p><b>Sule</b> - Bike XYZ789 - Available</p>
+</div>
+
+</div>
+<script>
+function openTab(tabName) {
+  document.getElementById('vendors').style.display = 'none';
+  document.getElementById('orders').style.display = 'none';
+  document.getElementById('riders').style.display = 'none';
+  document.getElementById(tabName).style.display = 'block';
+}
+</script>
+</body>
+</html>
