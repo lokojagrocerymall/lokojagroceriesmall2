@@ -55,3 +55,88 @@
             <div class="product" data-category="oil" data-name="5L Vegetable Oil">
                 <img src="https://images.unsplash.com/photo-1474979266404-7eaacb7d4a21?w=400" alt="Oil">
                 <h3>5
+                <h3>5L Vegetable Oil</h3>
+                <p class="price">₦12,500</p>
+                <button class="btn" onclick="addToCart('5L Vegetable Oil', 12500)">Add to Cart</button>
+            </div>
+
+            <div class="product" data-category="grains" data-name="Bag of Beans">
+                <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400" alt="Beans">
+                <h3>Bag of Beans</h3>
+                <p class="price">₦45,000</p>
+                <button class="btn" onclick="addToCart('Bag of Beans', 45000)">Add to Cart</button>
+            </div>
+
+            <div class="product" data-category="vegetables" data-name="Fresh Yam">
+                <img src="https://images.unsplash.com/photo-1617093727343-374698b1ec89?w=400" alt="Yam">
+                <h3>Fresh Yam</h3>
+                <p class="price">₦3,500</p>
+                <button class="btn" onclick="addToCart('Fresh Yam', 3500)">Add to Cart</button>
+            </div>
+
+            <div class="product" data-category="vegetables" data-name="Basket of Tomatoes">
+                <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400" alt="Tomatoes">
+                <h3>Basket of Tomatoes</h3>
+                <p class="price">₦25,000</p>
+                <button class="btn" onclick="addToCart('Basket of Tomatoes', 25000)">Add to Cart</button>
+            </div>
+
+            <div class="product" data-category="meat" data-name="Whole Chicken">
+                <img src="https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=400" alt="Chicken">
+                <h3>Whole Chicken</h3>
+                <p class="price">₦8,000</p>
+                <button class="btn" onclick="addToCart('Whole Chicken', 8000)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart" onclick="checkout()">
+        🛒 Cart: <span id="cartCount">0</span> | Total: ₦<span id="cartTotal">0</span>
+    </div>
+
+    <footer>
+        <p>📞 WhatsApp: 08052941223 | 📍 Lokoja, Kogi State</p>
+        <p>Delivery: ₦1,000 within Lokoja</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let cartTotal = 0;
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            cartTotal += price;
+            document.getElementById('cartCount').innerText = cart.length;
+            document.getElementById('cartTotal').innerText = cartTotal.toLocaleString();
+            alert(name + ' added to cart!');
+        }
+
+        function checkout() {
+            if(cart.length === 0) { alert('Cart is empty!'); return; }
+            let message = 'Hello LGM, I want to order:%0A%0A';
+            cart.forEach(item => { message += `- ${item.name}: ₦${item.price.toLocaleString()}%0A`; });
+            message += `%0ATotal: ₦${cartTotal.toLocaleString()}%0A%0ADelivery Address: `;
+            window.open('https://wa.me/2348052941223?text=' + message);
+        }
+
+        // SEARCH FUNCTION
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let search = this.value.toLowerCase();
+            document.querySelectorAll('.product').forEach(product => {
+                let name = product.getAttribute('data-name').toLowerCase();
+                product.classList.toggle('hidden', !name.includes(search));
+            });
+        });
+
+        // CATEGORY FILTER
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.product').forEach(product => {
+                let category = product.getAttribute('data-category');
+                product.classList.toggle('hidden', cat !== 'all' && category !== cat);
+            });
+        }
+    </script>
+</body>
+</html>
