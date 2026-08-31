@@ -1,12 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LGM - Lokoja Grocery Mall</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOKOJA GROCERIES MALL - LGM</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body { background: #f5f5f5; }
+  header { background: #2E7D32; color: white; padding: 15px; text-align: center; }
+  header h1 { font-size: 22px; }
+  .container { max-width: 1200px; margin: 20px auto; padding: 10px; }
+  .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .product { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+  .product img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+  .product h3 { margin: 10px 0; color: #2E7D32; }
+  .price { font-size: 18px; font-weight: bold; color: #FF6F00; }
+  .btn { background: #FF6F00; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer; width: 100%; font-size: 16px; }
+  .btn:hover { background: #E65100; }
+  #cart { background: white; padding: 15px; margin-top: 20px; border-radius: 10px; }
+  footer { text-align: center; padding: 20px; background: #2E7D32; color: white; margin-top: 30px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🏪 LOKOJA GROCERIES MALL - LGM</h1>
+  <p>Fresh Groceries Delivered in Lokoja</p>
+</header>
+
+<div class="container">
+  <div class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1574323347407-11c8d380ec01?w=400" alt="Rice">
+      <h3>50kg Bag of Rice</h3>
+      <p class="price">₦65,000</p>
+      <button class="btn" onclick="addToCart('50kg Bag of Rice', 65000)">Add to Cart</button>
+    </div>
+    
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400" alt="Oil">
+      <h3>5L Vegetable Oil</h3>
+      <p class="price">₦12,500</p>
+      <button class="btn" onclick="addToCart('5L Vegetable Oil', 12500)">Add to Cart</button>
+    </div>
+    
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400" alt="Beans">
+      <h3>Bag of Beans</h3>
+      <p class="price">₦45,000</p>
+      <button class="btn" onclick="addToCart('Bag of Beans', 45000)">Add to Cart</button>
+    </div>
+    
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400" alt="Yam">
+      <h3>Fresh Yam Tubers</h3>
+      <p class="price">₦3,500 each</p>
+      <button class="btn" onclick="addToCart('Fresh Yam', 3500)">Add to Cart</button>
+    </div>
+    
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400" alt="Tomatoes">
+      <h3>Basket of Tomatoes</h3>
+      <p class="price">₦25,000</p>
+      <button class="btn" onclick="addToCart('Basket of Tomatoes', 25000)">Add to Cart</button>
+    </div>
+    
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1611080626919-1a0b2531ed1a?w=400" alt="Chicken">
+      <h3>Whole Chicken</h3>
+      <p class="price">₦8,000</p>
+      <button class="btn" onclick="addToCart('Whole Chicken', 8000)">Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="cart">
+    <h2>🛒 Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <h3>Total: ₦<span id="total">0</span></h3>
+    <button class="btn" onclick="checkout()">Checkout on WhatsApp</button>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 LOKOJA GROCERIES MALL | Call: 080-XXX-XXXX | Lokoja, Kogi State</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  total += price;
+  updateCart();
+  alert(name + " added to cart!");
+}
+
+function updateCart() {
+  let cartList = document.getElementById('cart-items');
+  cartList.innerHTML = '';
+  cart.forEach(item => {
+    cartList.innerHTML += `<li>${item.name} - ₦${item.price.toLocaleString()}</li>`;
+  });
+  document.getElementById('total').innerText = total.toLocaleString();
+}
+
+function checkout() {
+  if(cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+  let message = "Hello LGM, I want to order:%0A";
+  cart.forEach(item => {
+    message += `- ${item.name}: ₦${item.price.toLocaleString()}%0A`;
+  });
+  message += `Total: ₦${total.toLocaleString()}`;
+  window.open(`https://wa.me/234XXXXXXXXXX?text=${message}`);
+}
+</script>
+</body>
 </html>
